@@ -1,0 +1,198 @@
+---------------------------------------------------------------BACKTRACKING--------------------------------------------------------
+
+Tower of hanoi:
+
+n=int(input())
+if n==1:
+    print(1)
+else:
+    moves=2**n-1
+    print(moves)  
+
+//output: 3 -->7
+4 --> 15
+5 --> 31
+--------------------------------------------------------------------------------------------------------------------------------
+
+check subset sum:
+
+def check(arr,target,n):
+    if target==0:
+        return True
+    if n==0:
+        return False
+    if arr[n-1]>target:
+        return check(arr,target,n-1)
+    return check(arr,target-arr[n-1],n-1) or check(arr,target,n-1)
+arr=[3,12,5,4,24,2]
+target=11
+ans=check(arr,target,len(arr))
+if ans==True:
+    print("solution found")
+else:
+    print("not found")
+
+//output: solution found
+-----------------------------------------------------------------------------------------
+ generate  valid paarenthesis: done with the help of backtracking. ( going back and undo the choice is called as BACKTRACKING)
+Input: 3
+Output:
+* ((()))
+* (()())
+* ()()()
+* ()(())
+
+//code
+
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        l=[]
+        res=[]
+        def tracking(opencount=0,closecount=0):
+            if opencount==closecount==n:
+                res.append("".join(l))
+            if opencount<n:
+                l.append('(')
+                tracking(opencount+1,closecount)
+                l.pop()
+            if closecount<opencount:
+                l.append(')')
+                tracking(opencount,closecount+1)
+                l.pop()
+            return res
+        return tracking()
+
+//output:
+n=3
+["((()))","(()())","(())()","()(())","()()()"]
+
+----------------------------------------------------------------------------------------------------------
+N-QUEEN PROBLEM
+
+//code
+
+create variables for row,column,positive diagonal,negative diagonal and res=[] list to store result and board.
+board=["."*n for i in range(n)] ---> this is called list comprehension..
+
+
+class Solution:
+    def solveNQueens(self, n: int) -> List[List[str]]:
+        col=[]
+        ans=[]
+        posdiag=[]
+        negdiag=[]
+        board=[['.']*n for i in range(n)]
+        def backtrack(r):
+            if r==n:
+                l=["".join(i) for i in board]
+                ans.append(l)
+                return
+            for c in range(n):
+                if c in col or (r+c) in posdiag or (r-c) in negdiag:
+                    continue
+                board[r][c]='Q'
+                col.append(c)
+                posdiag.append(r+c)
+                negdiag.append(r-c)
+                backtrack(r+1)
+                board[r][c]='.'
+                col.remove(c)
+                posdiag.remove(r+c)
+                negdiag.remove(r-c)
+        backtrack(0)
+        return ans
+
+
+OUTPUT:
+
+ N=4
+[[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]
+
+N=1
+[["Q"]]
+
+--------------------------------------------------------------------------------------------------------------------------
+
+//no.of distinct solutions in nqueen problem....
+
+
+class Solution:
+    def totalNQueens(self, n: int) -> int:
+        col=[]
+        ans=[]
+        posdiag=[]
+        negdiag=[]
+        board=[['.']*n for i in range(n)]
+        def backtrack(r):
+            if r==n:
+                l=["".join(i) for i in board]
+                ans.append(l)
+                return
+            for c in range(n):
+                if c in col or (r+c) in posdiag or (r-c) in negdiag:
+                    continue
+                board[r][c]='Q'
+                col.append(c)
+                posdiag.append(r+c)
+                negdiag.append(r-c)
+                backtrack(r+1)
+                board[r][c]='.'
+                col.remove(c)
+                posdiag.remove(r+c)
+                negdiag.remove(r-c)
+        backtrack(0)
+        return len(ans)
+
+
+OUTPUT:
+
+N=4
+2
+--------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

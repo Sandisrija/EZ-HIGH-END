@@ -1,0 +1,382 @@
+         -------------------------------------------------------PYTHON-----------------------------------------------------------------
+ord --> prints ascii value
+A 65 TO Z 90
+a 97 to z 122
+chr --> prints characters
+
+a=68
+print(chr(a))    //output: D
+
+//printing the location of alphabet
+ input: B
+ output: 2
+
+a=input()
+print(ord(a)-64)   // B --> 2
+
+
+a=input()
+print(ord(a)-96)     // b --> 2
+
+//input: h
+//jump 3letters
+//output: k
+
+a=input()
+print(chr(ord(a)+3))      // b --> e
+
+
+//input: x
+//jump 3letters
+//output: b
+
+a=input()
+b=int(input())
+if(ord(a)+b >122):
+    print(chr((ord(a)+b)-26))      // y---> 3 --> b
+else:
+    print(chr(ord(a)+b))
+
+
+
+for i in range(-6,-15,-2):
+	print(i)                      //-6 -8 -10 -12 -14
+        i=i-2;
+
+
+
+//printing 4 stars.
+
+a=int(input())
+for i in range(a):            
+    for j in range(i+1):
+        print("* ",end=' ')
+    print()
+ 
+OUTPUT:
+4
+*  
+*  *  
+*  *  *  
+*  *  *  * 
+
+//printing stars 2ND LOGIC
+
+a=int(input())
+for i in range(a):
+    print("* "* (i+1))
+
+OUTPUT:
+10
+* 
+* * 
+* * * 
+* * * * 
+* * * * * 
+* * * * * * 
+* * * * * * * 
+* * * * * * * * 
+* * * * * * * * * 
+* * * * * * * * * * 
+
+
+//reversed pyramid
+
+
+a=int(input())
+for i in range(a):
+    print(" "*(i+1) + "* " *(a-i))
+
+
+OUTPUT:
+
+4
+ * * * * 
+  * * * 
+   * * 
+    * 
+
+//STAR PYRAMID
+
+a=int(input())
+for i in range(a):
+    print(" "*(a-i) + "* " *(i+1))
+
+
+OUTPUT:
+
+5
+     * 
+    * * 
+   * * * 
+  * * * * 
+ * * * * * 
+
+//PYRAMID
+
+
+a=int(input())
+for i in range(a):
+    print(" "*(a-i) + "* " *(i+1))
+for i in range(a):
+    print(" "*(i+1) + "* " *(a-i))
+
+OUTPUT:
+
+4
+    * 
+   * * 
+  * * * 
+ * * * * 
+ * * * * 
+  * * * 
+   * * 
+    * 
+
+
+
+//NUMBER PYRAMID
+
+a=int(input())
+for i in range(a):
+    print(str(i+1) *(i+1))
+
+OUTPUT:
+
+5
+
+1
+22
+333
+4444
+55555
+
+
+
+//number pyramid
+
+a=int(input())
+for i in range(1,a+1):
+    print((10**(i-1))*i)
+
+OUTPUT:
+5
+
+1
+20
+300
+4000
+50000
+
+
+//pyramid
+
+a=int(input())
+b=1
+for i in range(1,a+1):
+    print(b*i)
+    b=(b*10)+1;
+
+OUTPUT::
+
+5
+
+1
+22
+333
+4444
+55555
+
+
+DSA, BACKTRACKING , DYNAMIC PROGRAMMING,RECURSION
+
+
+                          <------------------------------------------FUNCTIONS------------------------------------------------>
+
+
+we create functions using the keyword "DEF".
+EXAMPLE:    
+        def cse():
+              print("hai")
+        def ece():
+	      print("hello",x+y)
+	ece(5,6,8)                 //OUTPUT:           TYPEERROR  ECE takes 2 arguments...
+        cse()
+
+//code
+         def cse():
+              print("hai")
+        def ece(*x):
+	      print("hello",x)
+	ece(5,6,3,5,6,7)                 //OUTPUT:           hello (5,6,3,,5,6,7)  hai
+        cse()
+
+ //code    
+        def cse():
+              print("hai")
+        def ece(x,y):
+	      print("hello",x,y)
+	ece(5,6)                 //OUTPUT:           TYPEERROR  ECE takes 2 arguments...
+        cse()
+
+
+
+
+how to stop recursion????????
+WE USE RETURN STATEMENT.
+EXmple:
+
+
+def cse(x):
+	if(x==0):
+	   return 0
+	print(x)
+       cse(x-1)
+     print(x)
+cse(4)
+  
+
+OUTPUT= 
+4
+3
+2
+1
+1
+2
+3
+4
+
+
+BACKTRACKING CMS INTO PICTURE.
+
+//CODE
+def cse(x):
+	if(x==0):
+	   return 0;
+        return x+cse(x-1)
+print(cse(4))
+
+//fibanocci code..
+
+
+        ---------------------------------------------------------------->oopc in python..<----------------------------------------------------------
+ 
+class: class has n number of objects.
+every object has data and methods.
+WE NEED TO HANDLE MORE DATA. THIS IS THE MAIN REASON.
+ **DATA ND METHOD BELONGS TO OBJECT. BUT CLASS HAS TAKEN IT. [FOR SECURITY PURPOSE.]
+
+**BINDING THE DATA ND METHODS IN CLASS IS CALLED ENCAPSULATION.
+HOW TO CREATE CLASS OBJECT ,DATA MD METHOD..
+
+class cse:             //class
+{
+}                       //methods
+a=cse()                //object
+a.qwer
+
+
+**inside a class,it is method.
+**outside the class,it is function.
+** way of accessing the data is called as methods.
+
+//exmple
+
+class cse:        #class creation
+    def qwer(self):
+        print("hi")
+a=cse()      #object creation
+a.qwer()    #function call
+cse.qwer(a)  #passing arguments..in self
+
+
+OUTPUT:
+
+hi
+hi
+
+CONSTRUCTOR:- def ___init____(self):
+
+**method which is not linked with object is called static variable.
+**if it is linked then it is nonstatic variable.
+
+
+//code
+
+class cse:        #class creation
+    x=10
+    def __init__(self):
+        self.y=30;
+    def qwer(self):
+        print("hi")
+a=cse()      #object creation
+a.qwer()    #function call
+print(cse.x,a.y)
+ 
+OUTPUT:
+
+hi
+10 30
+
+//code
+
+class cse:        #class creation
+    x=10
+    def __init__(self):
+        self.y=30;
+    def qwer(self):
+        print("hi",self.y)
+a=cse()      #object creation
+a.qwer()    #function call
+print(cse.x,a.y)
+
+
+OUTPUT:
+hi 30
+10 30
+
+//code
+
+class cse:        #class creation
+    x=10
+    def __init__(self,k):
+        self.y=k;
+    def qwer(self):
+        print("hi",self.y)
+a=cse(80)      #object creation
+a.qwer()    #function call
+print(cse.x,a.y)
+
+output:
+hi 80
+10 80
+
+//code
+
+
+class node:        #class creation
+    def __init__(self,z):
+        self.data=z
+        self.next=None
+class cse:
+    def __init__(self,k):
+        self.head=None
+    def creat(self,x):
+        if(self.head==None):
+            self.head=node(x)
+        else:
+            self.head.next=node(x)
+a=cse(80)
+b=cse(12)
+b.creat(20)
+b.creat(30)
+print(b.head.data)         //20
+ print(b.head.next.next)   //None
+
+
+
+
+
+
+
+

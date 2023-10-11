@@ -1,0 +1,279 @@
+----------------------------------sorting algorithms,magic square and check subset sum(backtracking)--------------------------------
+ * INSERTION SORT
+* BUBBLE SORT
+* SELECTION SORT
+* radix sort and heap sort
+-------------------------------------------------------
+magic square:
+* if n=3 then the elements are from 1-9.(n2)
+* 1 +2+...+9=45
+45/3=15
+* the sum  of row,column and diagonal should be 15.
+
+
+ 1 -> (n//2,n-1)
+ 2 -> (i-1,j+1)
+ if j==n:
+     j=0
+if i==-1 or i<0:
+     i=n-1
+ifsq[i][j]:
+     i=i+1
+     j=j-1
+
+//output:
+2  7  6
+9  5  1
+4  3  8
+-----------------------------------------------------------------------------------------------
+//code
+
+##using loops
+n=int(input())
+sq=[[0]*n for i in range(n)]
+num=1
+i=n//2
+j=n-1
+while num<=(n*n):
+    if i<0 and j==n:
+        i=0
+        j=n-2
+    else:
+        if i<0:
+            i=n-1
+        if j==n:
+            j=0
+    if sq[i][j]:
+        i=i+1
+        j=j-2
+        continue
+    sq[i][j]=num
+    num+=1
+    i=i-1
+    j=j+1
+for i in sq:#every i stands for a list
+    print(*i) #to remove []
+print('magic constant-',n*((n*n)+1)//2)
+
+
+//output:
+
+5
+
+9 3 22 16 15
+2 21 20 14 8
+25 19 13 7 1
+18 12 6 5 24
+11 10 4 23 17
+magic constant- 65
+-----------------------------------------------------------------------------------------------
+## using recursion
+
+//code
+
+using recursion time complexity is n2.(no.of elements to be filled are.n2..so tc is n2)
+
+
+ def generate_sq(n):
+    sq=[[0]*n for i in range(n)]
+    def fill(i,j,num):
+        if num>(n*n):
+            return sq
+        if i<0 and j==n:
+            i=0
+            j=j-2
+        else:
+            if i<0:
+                i=n-1
+            if j==n:
+                j=0
+        if sq[i][j]:
+            i=i+1
+            j=j-2
+            return fill(i,j,num)
+        sq[i][j]=num
+        return fill(i-1,j+1,num+1)
+    return fill(n//2,n-1,1)
+n=int(input())
+print(generate_sq(n))
+
+
+OUTPUT:
+
+5
+[[9, 3, 22, 16, 15], [2, 21, 20, 14, 8], [25, 19, 13, 7, 1], [18, 12, 6, 5, 24], [11, 10, 4, 23, 17]]
+-----------------------------------------------------------------------------------------------------------------
+
+
+//check subset sum
+
+Algorithm::
+
+example:- [2,5,8,1,0]
+target=10
+
+
+2nd logic******
+{1st logic in oct3 file}
+
+//code
+def check(nums,target):
+    def backtrack(start,sum):
+        if sum==target:
+            return True
+        if sum>target or start==len(nums):
+            return False
+        if backtrack(start+1,sum+nums[start]):
+            subset.append(nums[start])
+            return True
+        return backtrack(start+1,sum)
+    subset=[]
+    if backtrack(0,0):
+        return True, subset
+    else:
+        return False, []
+nums=list(map(int,input().split("")))
+target_sum=int(input())
+bool,subset = check(nums,target_sum)
+if bool:
+    print("subset with sum",target_sum,"exists:",subset)
+else:
+    print("No subset with sum",target_sum,"exists:",subset)
+
+
+--------------------------------------------------------------------------------------------------------------
+
+BUBBLE SORT:comparing the two numbers and swapping them..
+ time complexity is O(n2).
+**Total number of swaps for worst case is same as total number of comparisons in each iteration.. 
+***n(n-1)/2***
+
+
+BEST CASE=(N-i) #i.e first iteration itself is best case..
+AVERAGE CASE=O(n)
+WORST CASE=O(n)
+
+
+l=list(map(int,input().split())
+for i in range(1,n):
+       for j in range(n-i):
+       if l[j]>l[j+1]:
+       l[j],l[j+1]=l[j+1],l[j]  //swapping l[j] to l[j+1] and viceversa
+
+//code
+
+def bubblesort(l):
+    for i in range(0,len(l)-1):
+       for j in range(len(l)-1):
+           if l[j]>l[j+1]:
+               l[j],l[j+1]=l[j+1],l[j]
+    return l
+l=list(map(int,input().split()))
+print(*bubblesort(l))
+       
+
+
+//OUTPUT:
+
+
+5 3 8 6 7 2
+2 3 5 6 7 8
+----------------------------------------------------------------------------------------------------------------------
+SELECTION SORT:
+
+1) i=0,min=1
+j=i+1
+j=1,2,3,4
+2) 1+2+.....+(n-2)+(n-1)
+n(n-1)/2 = n2/2-n/2= O(n2)
+
+**no.of swaps in alg is= (n-1)
+**no.of comparisions in alg is= n(n-1)
+
+
+
+BEST CASE,WORST CASE AND AVERAGE CASE TIME COMPLEXITY IS O(n2).
+
+
+//code
+
+l=list(map(int,input().split())
+for i in range(n-1):
+       mini=i
+       for j in range(i+1,n):
+       if l[j]<l[mini]:
+       mini=j
+       l[i],l[mini]=l[mini],l[.]
+
+//code
+
+
+def selection_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    min_index = arr.index(min(arr))
+    arr[0], arr[min_index] = arr[min_index], arr[0]
+    sorted_tail = selection_sort(arr[1:])
+    return [arr[0]] + sorted_tail
+unsorted_list = [64, 25, 12, 22, 11]
+sorted_list = selection_sort(unsorted_list)
+print(*sorted_list,sep=", ")
+
+
+//output:
+
+11, 12, 22, 25, 64
+____________________________________________________________________________________________________________________________
+INSERTION SORT:
+
+for i in range(1,n):
+    key=l[i]
+    while j>=0 and key<l[j]:
+        l[j+1]=l[j]
+        j-=1
+    l[j+1]=key
+
+
+//code
+
+def insertion_sort(arr):
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and key < arr[j]:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key
+# Example usage:
+my_list =list(map(int,input().split(",")))
+insertion_sort(my_list)
+print( *my_list,sep=",")
+
+//OUTPUT::
+
+5,2,6,9,7
+2,5,6,7,9
+------------------------------------------------------------------------------------------------------------------
+
+
+def bubblesort(l):
+    for i in range(0,len(l)-1):
+       for j in range(len(l)-1):
+           if l[j]>l[j+1]:
+               l[j],l[j+1]=l[j+1],l[j]
+    return l
+l=list(map(int,input().split()))
+print(*bubblesort(l))
+
+
+
+
+
+
+
+
+
+
+
+
+

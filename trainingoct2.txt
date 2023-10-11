@@ -1,0 +1,242 @@
+------------------------------------>RECURSION<------------------------------------- more than 7lpa....
+LEET CODE
+
+Recursion problems are more important to crack more than 7lpa..
+
+* **Recursion** is used for backtracking .dynamic programming nd etc..
+** Backtracking means coming back and undo the choice we made.
+more than 8lpa package....
+1) solve mcqs (CAPGEMINI,TCS etc)
+2) writing code for recursion.(table printing,,...printing n to 1....simple codes)
+
+
+##functioncalls examples(NOTES)
+
+****simple program to check how stupid a person is:(game)
+
+
+import random
+a=input('how stupid are u')
+print(random.randint(1,100),'%')
+ 
+
+OUTPUT:
+how stupid are u srija
+36 %
+
+
+***funniest game to check how much package you get
+
+import random
+a=input('package you get')
+print(random.randint(1,100),'LPA')
+ 
+
+OUTPUT:
+package you get sandi srija
+72 LPA
+
+*** code(USING LOOP)
+
+a=int(input())
+for i in range(1,a+1):
+    print(i)
+
+OUTPUT:
+10
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+
+
+*** (USING RECURSION)
+
+n=int(input())
+def fun(n):
+    if n==0:
+        return
+    fun(n-1)
+    print(n)
+fun(n)
+
+
+OUTPUT:
+5
+1
+2
+3
+4
+5
+
+*** REVERSING THE DIGITS( 5 4 3 2 1) loop
+
+n=int(input())
+for i in range(n, 0, -1):
+    print(i)
+
+OUTPUT:
+
+5
+5
+4
+3
+2
+1
+
+
+***check whether the string is palindrome or nott..(using recursion)
+
+
+1)s=input()
+def isPalindrome(s):
+	return s == s[::-1]
+#s = "srija"
+ans = isPalindrome(s)
+if ans:
+	print("Yes")
+else:
+	print("No")
+
+OUTPUT:
+srija
+No
+
+2)s=input()
+def isPalindrome(s):
+	return s == s[::-1]
+#s = "abbba"
+ans = isPalindrome(s)
+if ans:
+	print("Yes")
+else:
+	print("No")
+
+
+OUTPUT:
+abbba
+Yes
+
+
+3) USING LOOP
+
+s=input()
+i=0
+j=len(s)-1
+while (i<j):
+    if(s[i]!=s[j]):
+        print("no")
+        break
+    i+=1
+    j-=1
+else:
+    print("yes")
+
+OUTPUT:
+
+malayalam
+yes
+
+sandy
+no
+
+4) USING RECURSION
+
+def fun(s,i,j):
+    if i>j:
+        return True
+    if s[i]!=s[j]:    #first condition whether 1st nd last elements are same or not.if they are equal.it is true.palindrome
+        return False
+    return fun(s,i+1,j-1)
+s=input()
+print(fun(s,0,len(s)-1))
+
+OUTPUT:
+
+abba
+True
+
+##NUMBER OF ISLAND PROBLEM.MATRIX 2D ARRAY,RANDOM 1 ND 0'S. 1 REPRESENTS LAND,0 REPRESENTS WATER.....
+1) iterate over matrix, wherever you find 1 -> count++ and start travelling recursively top,bottom,right and left.
+2) def fun(l,i,j,n):
+  if l[i][j]==0: 
+  	return
+for i in range(n):
+	for j in range(n):
+		if(l[i][j]==1):
+		    count+=1
+		fun(l,i,j,n)
+if i>0: right traversal- i,j+1
+if i<n-1: left traversal-i,j-1
+if i>0: top traversal-i-1,j
+if i<n-1: bottom traversal-i+1,j
+
+
+//CODE
+
+
+l=[[1,0,0,1],[1,0,0,0],[1,0,1,0],[0,1,1,1]]
+n=len(l)
+def fun(l,i,j,n):
+    if l[i][j]==0:
+           return
+    if l[i][j]==1:
+           l[i][j]=0
+    if i<n-1:
+        fun(l,i+1,j,n)
+    if j>0:
+        fun(l,i-1,j,n)
+    if j<n-1:
+        fun(l,i,j-1,n)
+count=0
+for i in range(n):
+    for j in range(n):
+        if l[i][j]==1:
+            count+=1
+            fun(l,i,j,n)
+print(count)
+
+
+OUTPUT:
+3
+
+
+-------------------------------------------------------------ASSESSMENT PROBLEMS-------------------------------------------------------------------
+
+
+TOWER OF HANOI
+
+def towers_of_hanoi(n, source, auxiliary, target):
+    if n == 1:
+        return 1
+    else:
+        count1 = towers_of_hanoi(n-1, source, target, auxiliary)
+        count2 = towers_of_hanoi(n-1, auxiliary, source, target)
+        return 1 + count1 + count2
+
+n = int(input())
+total_moves = towers_of_hanoi(n, 'A', 'B', 'C')
+print(total_moves)
+
+OUTPUT:
+3
+7
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+Learn Algorithms:
+
+Study sorting algorithms (e.g., Bubble Sort, Quick Sort, Merge Sort).
+Learn searching algorithms (e.g., Linear Search, Binary Search).
+Explore graph algorithms (e.g., Breadth-First Search, Depth-First Search).
+Understand dynamic programming, recursion, and backtracking.
+
+
+
