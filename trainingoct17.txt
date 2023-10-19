@@ -1,0 +1,407 @@
+____lONGEST COMMON SUBSEQUENCE[LCS ALG]_____
+
+//CODE:
+def print_matrix(mat):
+    for row in mat:
+        print(row)
+def LCS(s1, s2):
+    row, col = len(s1)+1, len(s2)+1
+    mat = [[None]*col for i in range(row)]
+    for i in range(row):
+        for j in range(col):
+            if i==0 or j == 0:
+                mat[i][j] = 0
+            elif s1[i-1] == s2[j-1]:
+                mat[i][j] = mat[i-1][j-1] + 1
+            else:
+                mat[i][j] = max(mat[i-1][j], mat[i][j-1])
+    print_matrix(mat)
+    return mat[row-1][col-1]
+s1 = "AGTAB"
+s2 = "GXTAYB"
+answer = LCS(s1, s2)
+print("My answer is: ",answer)
+_____________________________________________________________________
+TOPICS FOR EVENING SESSION:
+
+LCS, LIS, LPS
+knapsack (0-1, p-w)
+DS concepts
+Tree and Graph traversal algs
+graph algorithms (shortest path)
+_____________________________________________________________________
+STACK AND QUEUE:
+
+STACK:It is a linear data structure which has only one end.follows the principle of last in first out.
+queue: linear data stucture has 2 ends.first is to enter and another one to remove..first in first out.(insert at beg and dlt at end, nd vice versa).
+
+we should not use remove function, we need to use append only.(l.append())
+and for removing we use l.pop() function only.
+
+[NO SORT FUNCTION,NO REVERSE FUNCTION,NO REMOVE FUNCTION]
+DQUEUE HAS popleft,popright functions.
+DQUEUE has 2 ends.insertion and deletion happenss..we cant access middle elements in the dqueue.
+* MODULE collection has dqueue.
+
+//code:
+
+import collections
+st=collections.deque()
+________________________________________________________________________
+
+LEET CODE: 2047) REMOVE ALL ADJACENT DUPLICATES IN THE STRING...
+
+problem statement:
+
+You are given a string s consisting of lowercase English letters. A duplicate removal consists of choosing two adjacent and equal letters and removing them.
+We repeatedly make duplicate removals on s until we no longer can.
+Return the final string after all such duplicate removals have been made. It can be proven that the answer is unique.
+
+Example 1:
+
+Input: s = "abbaca"
+Output: "ca"
+Explanation: 
+For example, in "abbaca" we could remove "bb" since the letters are adjacent and equal, and this is the only possible move.  The result of this move is that the string is "aaca", of which only "aa" is possible, so the final string is "ca".
+
+
+//code:
+
+from collections import deque
+class Solution:
+    def removeDuplicates(self, s: str) -> str:
+        st=collections.deque()
+        for i in s:
+            if not st:
+                st.append(i)
+            elif i==st[-1]:
+                st.pop()
+            else:
+                st.append(i)
+        return "".join(st)
+___________________________________________________________________________________
+2696) MINIMUM STRING LENGTH AFTER REMOVING SUBSTRINGS.
+
+problem statement:
+You are given a string s consisting only of uppercase English letters.
+You can apply some operations to this string where, in one operation, you can remove any occurrence of one of the substrings "AB" or "CD" from s.
+Return the minimum possible length of the resulting string that you can obtain.
+Note that the string concatenates after removing the substring and could produce new "AB" or "CD" substrings.
+Example 1:
+
+Input: s = "ABFCACDB"
+Output: 2
+Explanation: We can do the following operations:
+- Remove the substring "ABFCACDB", so s = "FCACDB".
+- Remove the substring "FCACDB", so s = "FCAB".
+- Remove the substring "FCAB", so s = "FC".
+So the resulting length of the string is 2.
+It can be shown that it is the minimum length that we can obtain.
+
+//CODE:
+
+from collections import deque
+class Solution:
+    def minLength(self, s: str) -> str:
+        stack=[]
+        for char in s:
+            if stack and(char=='B' and stack[-1]=='A' or char=='D' and stack[-1]=='C'):
+                stack.pop()
+            else:
+                stack.append(char)
+        return len(stack)
+_________________________________________________________________________________________
+2390) removing the stars in the string.
+
+statement:
+You are given a string s, which contains stars *.
+In one operation, you can:
+Choose a star in s.
+Remove the closest non-star character to its left, as well as remove the star itself.
+Return the string after all stars have been removed.
+
+Note:
+
+The input will be generated such that the operation is always possible.
+It can be shown that the resulting string will always be unique.
+ 
+
+Example 1:
+
+Input: s = "leet**cod*e"
+Output: "lecoe"
+
+//code:
+
+class Solution:
+  def removeStars(self, s: str) -> str:
+    stack = []
+    for char in s:
+      if char == '*':
+        stack.pop()
+      else:
+        stack.append(char)
+    return "".join(stack)
+
+_________________________________________________________________________________
+
+20) VALID PARENTHESES:
+
+STATEMENT:
+
+Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+An input string is valid if:
+Open brackets must be closed by the same type of brackets.
+Open brackets must be closed in the correct order.
+Every close bracket has a corresponding open bracket of the same type.
+
+Example 1:
+Input: s = "()"
+Output: true
+
+//code:
+
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack=[]
+        for char in s:
+            if char=='(':
+                stack.append(')')
+            elif char=='{':
+                stack.append('}')
+            elif char=='[':
+                stack.append(']')
+            elif not stack or stack.pop() !=char:
+                return False
+        return True
+_________________________________________________________________________________
+641) DESIGN CIRCULAR DEQUE.
+
+//STATEMENT:
+Design your implementation of the circular double-ended queue (deque).
+Implement the MyCircularDeque class:
+
+MyCircularDeque(int k) Initializes the deque with a maximum size of k.
+boolean insertFront() Adds an item at the front of Deque. Returns true if the operation is successful, or false otherwise.
+boolean insertLast() Adds an item at the rear of Deque. Returns true if the operation is successful, or false otherwise.
+boolean deleteFront() Deletes an item from the front of Deque. Returns true if the operation is successful, or false otherwise.
+boolean deleteLast() Deletes an item from the rear of Deque. Returns true if the operation is successful, or false otherwise.
+int getFront() Returns the front item from the Deque. Returns -1 if the deque is empty.
+int getRear() Returns the last item from Deque. Returns -1 if the deque is empty.
+boolean isEmpty() Returns true if the deque is empty, or false otherwise.
+boolean isFull() Returns true if the deque is full, or false otherwise.
+
+Example 1:
+
+Input
+["MyCircularDeque", "insertLast", "insertLast", "insertFront", "insertFront", "getRear", "isFull", "deleteLast", "insertFront", "getFront"]
+[[3], [1], [2], [3], [4], [], [], [], [4], []]
+Output
+[null, true, true, true, false, 2, true, true, true, 4]
+
+
+//CODE:
+class MyCircularDeque:
+    def __init__(self, k: int):
+        self.dq=[]
+        self.k=k
+    def insertFront(self, value: int) -> bool:
+        if len(self.dq)<self.k:
+            self.dq=[value]+self.dq
+            return True
+        return False
+    def insertLast(self, value: int) -> bool:
+        if len(self.dq)<self.k:
+            self.dq.append(value)
+            return True
+        return False
+    def deleteFront(self) -> bool:
+        if len(self.dq)>0:
+            self.dq.pop(0)
+            return True
+        return False
+    def deleteLast(self) -> bool:
+        if len(self.dq)>0:
+            self.dq.pop()
+            return True
+        return False
+
+    def getFront(self) -> int:
+        if len(self.dq)>0:
+            return self.dq[0]
+        return -1
+
+    def getRear(self) -> int:
+        if len(self.dq)>0:
+            return self.dq[-1]
+        return -1
+
+    def isEmpty(self) -> bool:
+        if not self.dq:
+            return True
+        return False
+
+    def isFull(self) -> bool:
+        if len(self.dq)==self.k:
+            return True
+        return False
+
+
+# Your MyCircularDeque object will be instantiated and called as such:
+# obj = MyCircularDeque(k)
+# param_1 = obj.insertFront(value)
+# param_2 = obj.insertLast(value)
+# param_3 = obj.deleteFront()
+# param_4 = obj.deleteLast()
+# param_5 = obj.getFront()
+# param_6 = obj.getRear()
+# param_7 = obj.isEmpty()
+# param_8 = obj.isFull()
+
+______________________________________________________________________________________________________________________
+                                             AFTERNOON SESSION
+
+NON LINEAR DATA STRUCTURES:
+TREES:
+follows hierarchail format.
+TYPES OF TREES)
+* BT
+* BST
+* AVL TREE
+* RED BLACK TREE.
+
+****BINARY TREE****:
+* Every node should have only 2 childs.
+* Nodes at the end called as leaf nodes(without childs).
+* Node degree(no.of childrens that the node has)
+* we need to use recursion here(NOT LOOPS).
+
+
+IMPLEMENTAION OF BINARY TREE
+
+class node:
+    def __init__(self,data):
+        self.val=data
+        self.right=None
+        self.left=None
+def prints(root):
+    if root==None:
+        return
+    prints(root.left)
+    prints(root.right)
+    print(root.val)
+
+root=node(1)
+root.left=node(2)
+root.right=node(3)
+root.left.left=node(4)
+root.left.right=node(5)
+
+______________________________________________________________________________________________
+BFS HAS INORDER,PREORDER AND POSTORDER.
+
+
+PREORDER TRAVERSAL:
+
+leetcode:
+statement:
+Given the root of a binary tree, return the preorder traversal of its nodes' values.
+Example 1:
+
+Input: root = [1,null,2,3]
+Output: [1,2,3]
+
+//code:
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        l=[]
+        def preorder(root):
+            if root==None:
+                return
+            l.append(root.val)
+            preorder(root.left)
+            preorder(root.right)
+        preorder(root)
+        return l
+___________________________________________________________________________________________________
+
+INORDER TRAVERSAL:
+
+statement:
+
+Given the root of a binary tree, return the inorder traversal of its nodes' values.
+Example 1:
+
+Input: root = [1,null,2,3]
+Output: [1,3,2]
+
+//code:
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        l=[]
+        def inorder(root):
+            if root==None:
+                return
+            inorder(root.left)
+            l.append(root.val)
+            inorder(root.right)
+        inorder(root)
+        return l      
+_____________________________________________________________________________________________
+
+POSTORDER TRAVERSAL:
+STATEMENT:
+
+Given the root of a binary tree, return the postorder traversal of its nodes' values.
+Example 1:
+Input: root = [1,null,2,3]
+Output: [3,2,1] 
+
+//CODE:
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        l=[]
+        def postorder(root):
+            if root==None:
+                return
+            postorder(root.left)
+            postorder(root.right)
+            l.append(root.val)
+        postorder(root)
+        return l
+_____________________________________________________________________________________________
+
+LEVEL ORDER TRAVERSAL(BFS):
+
+q=[]
+q.append(root)
+while q:
+    a=q.pop(0)
+    print(a.val)
+    if a.left:
+        q.append(a.left)
+    if a.right:
+        q.append(a.right)
+
+_______________________________________________________________________________________________
